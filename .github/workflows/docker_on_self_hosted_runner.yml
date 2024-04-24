@@ -11,3 +11,13 @@ jobs:
       image: almalinux:latest
       env:
         NODE_ENV: development
+
+    steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v2
+    # - name: Set up Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.10.12
+    - name: print hostname by bash command
+      run: hostname
