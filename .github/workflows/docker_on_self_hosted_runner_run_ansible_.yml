@@ -21,7 +21,8 @@ jobs:
     - name: Set owner / permissions on _work directory
       run: |
         #chown -R vimi:vimi _work/gh-actions-demo/gh-actions-demo/.github/workflows
-        chmod -R 755 _work/gh-actions-demo/gh-actions-demo/.github/workflows
+        chmod -R 755 .github/workflows
+
 
     # - name: Set up Python
     #   uses: actions/setup-python@v2
