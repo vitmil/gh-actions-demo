@@ -4,11 +4,11 @@ on: [push]
 
 jobs:
   #job_1:
-    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow 
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job 
     #runs-on: controller-ub-home.lab
     #runs-on: vps-ubuntu-ovh
   container-test-job:
-    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow 
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job 
     #runs-on: ubuntu-latest
     runs-on: vps-ubuntu-ovh
     container:

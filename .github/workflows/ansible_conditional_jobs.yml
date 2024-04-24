@@ -6,7 +6,7 @@ on:
 
 jobs:
   job_1_esegui_playbook:
-    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
     runs-on: vps-ubuntu-ovh
     steps:          
       - name: Checkout repository

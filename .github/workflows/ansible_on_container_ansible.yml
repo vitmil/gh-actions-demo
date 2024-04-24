@@ -22,7 +22,7 @@ on: [push]
 
 jobs:
   job_1:
-    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
     runs-on: ubuntu-latest
     container:
       image: ansible/ansible:ubuntu1404
