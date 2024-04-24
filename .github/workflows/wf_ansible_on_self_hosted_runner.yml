@@ -27,4 +27,4 @@ jobs:
         
     - name: Run playbook_1
       run: |
-        ansible/ansible-playbook playbook_1.yaml
+        ansible-playbook ansible/playbook_1.yaml
