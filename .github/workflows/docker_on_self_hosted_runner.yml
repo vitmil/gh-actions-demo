@@ -25,3 +25,19 @@ jobs:
       run: |
         dnf update -y
         dnf install python3 -y 
+        
+    # - name: print hostname by python script
+    #   run: |
+    #     python3 -c """
+    #     import socket  
+    #     print(socket.gethostname())
+    #     """
+    - name: Install Ansible if not present
+      run: |
+        if ! which ansible-playbook > /dev/null 2>&1 ; then 
+          dnf install -y epel-release
+          dnf -y install ansible
+        fi
+    - name: Run playbook_1
+      run: |
+        ansible-playbook ansible/playbook_1.yaml
