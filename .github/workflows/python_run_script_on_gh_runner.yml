@@ -26,7 +26,7 @@ jobs:
 
     - name: Unit-test Verify Output
       run: |
-        output=$(python request_ident_me.py)
+        output=$(python python/request_ident_me.py)
         echo "Script output: $output"
 
         if [[ "${output}" =~ "OK"   ]] ; then
