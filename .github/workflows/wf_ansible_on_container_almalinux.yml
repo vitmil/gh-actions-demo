@@ -1,0 +1,23 @@
+name: Run ansible-playbook on container almalinux
+on: [push]
+
+jobs:
+  job_1:
+    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow
+    runs-on: ubuntu-latest
+    container:
+      image: almalinux:latest
+      
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: execute hostname
+        run: hostname
+      - name: install ansible 
+        run: |
+          dnf -y update
+          dnf install -y epel-release
+          dnf -y install ansible
+      - name: Run playbook_1
+        run: |
+          ansible/ansible-playbook playbook_1.yaml

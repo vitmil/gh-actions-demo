@@ -1,0 +1,30 @@
+name: run ansible-playbook on self-hosted runner
+
+on: [push]
+
+jobs:
+  job_1:
+    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow 
+    #runs-on: controller-ub-home.lab
+    runs-on: vps-ubuntu-ovh
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10.12
+    - name: print hostname
+      run: hostname
+
+    - name: Install Ansible if not present
+      run: |
+        if ! which ansible-playbook > /dev/null 2>&1 ; then 
+          python -m pip install --upgrade pip
+          pip install ansible
+        fi
+        
+    - name: Run playbook_1
+      run: |
+        ansible/ansible-playbook playbook_1.yaml

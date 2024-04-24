@@ -1,0 +1,39 @@
+name: Esegue Playbook Ansible e invia notifica in caso di successo
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  job_1_esegui_playbook:
+    if: github.ref == 'refs/heads/no-branch-for-skip' # skippo questo workflow
+    runs-on: vps-ubuntu-ovh
+    steps:          
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Installa Ansible se non presente
+        run: |
+          if ! which ansible-playbook > /dev/null 2>&1 ; then 
+            python -m pip install --upgrade pip
+            pip install ansible
+          fi
+      - name: Esegue playbook Ansible
+        id: job_1_esegui_playbook
+        run: |
+          ansible/ansible-playbook playbook_1.yaml
+          
+  jobs_2_se_successo:
+    runs-on: vps-ubuntu-ovh
+    if: success() 
+    needs: job_1_esegui_playbook
+    steps:
+      - name: esegue playbook 2
+        id: esegui-playbook
+        run: |
+          ansible/ansible-playbook playbook_2.yaml
+      # - name: Invia notifica via email in caso di successo
+      #   uses: actions/notify@v2
+      #   with:
+      #     email: utente@example.com
+      #     subject: Playbook Ansible eseguito con successo!
+      #     body: Il playbook Ansible è stato eseguito con successo sul branch ${{ github.event.ref.name }}.

@@ -1,0 +1,19 @@
+---
+
+- name: playbook 2
+  hosts: localhost
+  connection: local 
+  gather_facts: True
+
+  tasks:
+
+  - name: print something
+    ansible.builtin.debug:
+      msg: "Hello from Ansible Playbook 2"
+
+  - name: print hostname
+    ansible.builtin.debug:
+      msg: "{{ item }}"
+    #with_items:
+    loop:
+      - "ansible_hostname: {{ ansible_hostname }}"
