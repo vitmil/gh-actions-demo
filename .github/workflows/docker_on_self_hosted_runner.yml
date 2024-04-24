@@ -21,3 +21,7 @@ jobs:
         python-version: 3.10.12
     - name: print hostname by bash command
       run: hostname
+    - name: install python (on container)
+      run: |
+        dnf update -y
+        dnf install python3 -y 
