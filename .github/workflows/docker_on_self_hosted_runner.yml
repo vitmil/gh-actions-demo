@@ -1,0 +1,13 @@
+name: docker on self-hosted runner
+
+on: [push]
+
+jobs:
+  container-test-job:
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job 
+    #runs-on: ubuntu-latest
+    runs-on: vps-ubuntu-ovh
+    container:
+      image: almalinux:latest
+      env:
+        NODE_ENV: development
