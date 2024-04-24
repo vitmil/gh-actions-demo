@@ -1,4 +1,4 @@
-name: run python script request_ident_me.py on gh runner
+name: python script on runner
 
 on:
   push:

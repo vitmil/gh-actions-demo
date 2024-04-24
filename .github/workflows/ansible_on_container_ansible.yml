@@ -16,7 +16,7 @@
 ## Errors were encountered while processing:
 ##  ansible
 ## E: Sub-process /usr/bin/dpkg returned an error code (1)
-name: run ansible-playbook container Ansible
+name: ansible on container ansible
 
 on: [push]
 

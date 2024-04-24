@@ -1,4 +1,4 @@
-name: Install Ansible and run playbook on gh-runner
+name: ansible on runner
 
 on: [push]
 

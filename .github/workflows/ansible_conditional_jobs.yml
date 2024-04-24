@@ -1,4 +1,4 @@
-name: Esegue Playbook Ansible e invia notifica in caso di successo
+name: ansible conditional jobs
 
 on:
   push:

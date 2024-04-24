@@ -1,4 +1,4 @@
-name: run script request_ident_me.py on self-hosted runner
+name: python script on self-hosted runner
 
 on:
   push:
