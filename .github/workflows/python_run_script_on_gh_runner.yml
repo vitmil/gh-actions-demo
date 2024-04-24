@@ -6,7 +6,7 @@ on:
 
 jobs:
   job_1:
-    #if: github.ref == 'refs/heads/branch_che_non_esiste' 
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
