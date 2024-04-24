@@ -41,4 +41,4 @@ jobs:
         fi      
 
     - name: Unit test chiamando file dal repo ./unit-test/unit_test.py
-      run: python python/./unit-test/unit_test.py
+      run: python python/unit-test/unit_test.py
