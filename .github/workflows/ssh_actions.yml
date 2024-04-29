@@ -30,7 +30,3 @@ jobs:
         script: | 
           whoami
           hostname
-          sudo ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
-          sudo chown -R vimi:vimi 
-          sudo ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
-

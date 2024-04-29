@@ -7,6 +7,9 @@ jobs:
     #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job 
     #runs-on: ubuntu-latest
     runs-on: vps-ubuntu-ovh
+    # per accedere alle variabili e secrets dentro il mio Environment creato nel repository
+    environment:  My_Environment_1
+
     container:
       image: almalinux:latest
       env:
@@ -16,6 +19,19 @@ jobs:
     ### !!! ###
     - name: Checkout code
       uses: actions/checkout@v3
+    
+    - name: executing remote ssh commands using password, to reset owner on _work directory
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+        username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+        password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+        #port: ${{ secrets.PORT }}
+        port: 2222
+        script: | 
+          sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          
+
 
     ### KO : non funzia
     # - name: Set owner / permissions on _work directory
