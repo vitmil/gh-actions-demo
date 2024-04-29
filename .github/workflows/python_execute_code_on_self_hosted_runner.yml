@@ -7,7 +7,8 @@ on:
 jobs:
   job_1:
     #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: vps-ubuntu-ovh
     steps:
     - uses: actions/checkout@v3
 
@@ -18,8 +19,8 @@ jobs:
 
     - name: install python
       run: |
-        dnf update -y || apt update -y
-        dnf install python3 -y || apt install  python3 -y
+        sudo apt update -y
+        sudo apt install  python3 -y
 
     - name: print hostname by python script (on container)
       run: |
