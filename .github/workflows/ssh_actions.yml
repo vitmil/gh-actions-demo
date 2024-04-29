@@ -1,0 +1,29 @@
+name: python script on self-hosted runner
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  job_1:
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
+    #runs-on: ubuntu-latest
+    runs-on: vps-ubuntu-ovh
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        #host: ${{ secrets.HOST }}
+        host: 51.178.46.222
+        username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+        password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+        #port: ${{ secrets.PORT }}
+        port: 22
+        script: | 
+          whoami
+          hostname
+          ls -l _work/gh-actions-demo/gh-actions-demo/.github/workflows/
+
