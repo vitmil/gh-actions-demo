@@ -31,43 +31,35 @@ jobs:
     #     script: | 
     #       sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
           
-
-
-    ### KO : non funzia
-    - name: Set owner on _work directory
-      run: |
-        chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
         
-
-
-    # - name: Set up Python
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: 3.10.12
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10.12
 
     - name: print hostname by bash command
       run: hostname
 
-    # - name: install python (on container)
+    - name: install python (on container)
 
-    #   run: |
-    #     dnf update -y
-    #     dnf install python3 -y 
+      run: |
+        dnf update -y
+        dnf install python3 -y 
 
-    # - name: print hostname by python script
-    #   run: |
-    #     python3 -c """
-    #     import socket  
-    #     print(socket.gethostname())
-    #     """
+    - name: print hostname by python script
+      run: |
+        python3 -c """
+        import socket  
+        print(socket.gethostname())
+        """
 
-    # - name: Install Ansible if not present
-    #   run: |
-    #     if ! which ansible-playbook > /dev/null 2>&1 ; then 
-    #       dnf install -y epel-release
-    #       dnf -y install ansible
-    #     fi
+    - name: Install Ansible if not present
+      run: |
+        if ! which ansible-playbook > /dev/null 2>&1 ; then 
+          dnf install -y epel-release
+          dnf -y install ansible
+        fi
 
-    # - name: Run playbook_1
-    #   run: |
-    #     ansible-playbook ansible/playbook_1.yaml
+    - name: Run playbook_1
+      run: |
+        ansible-playbook ansible/playbook_1.yaml
