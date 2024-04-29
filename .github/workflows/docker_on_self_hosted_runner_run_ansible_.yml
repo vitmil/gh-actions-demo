@@ -20,16 +20,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    # - name: executing remote ssh commands using password, to reset owner on _work directory
-    #   uses: appleboy/ssh-action@v1.0.3
-    #   with:
-    #     host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
-    #     username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
-    #     password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
-    #     #port: ${{ secrets.PORT }}
-    #     port: 2222
-    #     script: | 
-    #       sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+    - name: executing remote ssh commands using password, to reset owner on _work directory
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+        username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+        password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+        #port: ${{ secrets.PORT }}
+        port: 2222
+        script: | 
+          sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
           
         
     - name: Set up Python
@@ -41,14 +41,13 @@ jobs:
       run: hostname
 
     - name: install python (on container)
-
       run: |
         dnf update -y
         dnf install python3 -y 
 
     - name: print hostname by python script
       run: |
-        python3 -c """
+        python -c """
         import socket  
         print(socket.gethostname())
         """
