@@ -29,5 +29,5 @@ jobs:
         script: | 
           whoami
           hostname
-          ls -l _work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
 
