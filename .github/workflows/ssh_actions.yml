@@ -14,20 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: access to secrets 
-      run: |
-        echo ${{ secrets.IP_SELF_HOSTED_RUNNER1 }}
+    # - name: access to secrets 
+    #   run: |
+    #     echo ${{ secrets.IP_SELF_HOSTED_RUNNER }}
 
-    # - name: executing remote ssh commands using password
-    #   uses: appleboy/ssh-action@v1.0.3
-    #   with:
-    #     host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
-    #     username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
-    #     password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
-    #     #port: ${{ secrets.PORT }}
-    #     port: 22
-    #     script: | 
-    #       whoami
-    #       hostname
-    #       ls -l _work/gh-actions-demo/gh-actions-demo/.github/workflows/
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+        username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+        password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+        #port: ${{ secrets.PORT }}
+        port: 22
+        script: | 
+          whoami
+          hostname
+          ls -l _work/gh-actions-demo/gh-actions-demo/.github/workflows/
 
