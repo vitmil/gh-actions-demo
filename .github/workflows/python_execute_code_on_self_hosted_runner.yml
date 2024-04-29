@@ -25,3 +25,6 @@ jobs:
         import socket  
         print(socket.gethostname())
         """
+
+    - name: print current user 
+      run: id
