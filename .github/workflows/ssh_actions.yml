@@ -16,7 +16,7 @@ jobs:
 
     - name: access to secrets 
       run: |
-        echo ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+        echo ${{ secrets.IP_SELF_HOSTED_RUNNER1 }}
 
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.3
