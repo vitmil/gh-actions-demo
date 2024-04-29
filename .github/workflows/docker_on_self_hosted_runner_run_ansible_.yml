@@ -29,7 +29,8 @@ jobs:
         #port: ${{ secrets.PORT }}
         port: 2222
         script: | 
-          sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          #sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/
           
         
     - name: Set up Python
