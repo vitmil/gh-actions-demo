@@ -47,7 +47,7 @@ jobs:
 
     # - name: print hostname by python script (on container)
     #   run: |
-    #     python -c """
+    #     python3 -c """
     #     import socket  
     #     print(socket.gethostname())
     #     """

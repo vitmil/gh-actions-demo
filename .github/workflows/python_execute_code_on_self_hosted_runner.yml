@@ -1,0 +1,29 @@
+name: python script on runner
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  job_1:
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.12
+
+    - name: install python
+      run: |
+        dnf update -y
+        dnf install python3 -y 
+
+    - name: print hostname by python script (on container)
+      run: |
+        python3 -c """
+        import socket  
+        print(socket.gethostname())
+        """
