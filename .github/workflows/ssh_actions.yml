@@ -9,6 +9,7 @@ jobs:
     #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
     #runs-on: ubuntu-latest
     runs-on: vps-ubuntu-ovh
+    # per accedere alle variabili e secrets dentro il mio Environment creato nel repository
     environment:  My_Environment_1
 
     steps:
@@ -29,5 +30,7 @@ jobs:
         script: | 
           whoami
           hostname
-          ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          sudo ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+          sudo chown -R vimi:vimi 
+          sudo ls -l /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
 
