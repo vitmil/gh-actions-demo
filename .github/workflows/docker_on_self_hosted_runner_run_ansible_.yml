@@ -36,7 +36,7 @@ jobs:
     ### KO : non funzia
     - name: Set owner on _work directory
       run: |
-        sudo chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
+        chown -R vimi:vimi /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/.github/workflows/
         
 
 
