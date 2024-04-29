@@ -40,17 +40,17 @@ jobs:
     - name: print hostname by bash command
       run: hostname
 
-    - name: install python (on container)
-      run: |
-        dnf update -y
-        dnf install python3 -y 
+    # - name: install python (on container)
+    #   run: |
+    #     dnf update -y
+    #     dnf install python3 -y 
 
-    - name: print hostname by python script
-      run: |
-        python -c """
-        import socket  
-        print(socket.gethostname())
-        """
+    # - name: print hostname by python script (on container)
+    #   run: |
+    #     python -c """
+    #     import socket  
+    #     print(socket.gethostname())
+    #     """
 
     - name: Install Ansible if not present
       run: |
