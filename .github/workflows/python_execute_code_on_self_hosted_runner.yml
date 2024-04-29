@@ -1,4 +1,4 @@
-name: python script on runner
+name: python execute code on self-hosted runner
 
 on:
   push:
@@ -18,8 +18,8 @@ jobs:
 
     - name: install python
       run: |
-        dnf update -y
-        dnf install python3 -y 
+        dnf update -y || apt update -y
+        dnf install python3 -y || apt install  python3 -y
 
     - name: print hostname by python script (on container)
       run: |
