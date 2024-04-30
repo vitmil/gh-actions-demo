@@ -1,0 +1,27 @@
+name: create and access to env vars
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  job_1:
+    #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
+    #runs-on: ubuntu-latest
+    runs-on: vps-ubuntu-ovh
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: set and export ENV var to $GITHUB_ENV
+      run: |
+        echo MY_VAR="AAAAAAAAAA" >> $GITHUB_ENV
+
+    - name: access to MY_VAR
+      run: |
+        echo ${{ env.MY_VAR }}
+        echo $MY_VAR 
+
+
