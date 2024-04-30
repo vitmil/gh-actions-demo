@@ -16,10 +16,22 @@ jobs:
 
     - name: install python if not present
       run: |
+        pkg_mngr=""
         if ! which python3 > /dev/null 2>&1 ; then 
-          sudo apt update -y
-          sudo apt install  python3 -y
+          echo -e "[INFO]: install python3...\n"
+          if which apt ; then 
+            pkg_mngr="apt"
+          elif which dnf ; then 
+            pkg_mngr="dnf"
+          else 
+            pkg_mngr="yum"
+          fi
+        sudo $pkg_mngr update -y
+        sudo $pkg_mngr install python3 -y
+        else
+          echo -e "\n[INFO]: python3 already installed"
         fi
+        
 
     - name: print hostname by python script (on container)
       run: |
