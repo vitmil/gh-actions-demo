@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   job_1:
     #if: github.ref == 'refs/heads/no-branch-for-skip' # skippo il job
     #runs-on: ubuntu-latest
@@ -30,15 +31,17 @@ jobs:
         sudo $pkg_mngr install python3 -y
         else
           echo -e "\n[INFO]: python3 already installed"
-        fi
-        
+        fi    
 
-    - name: print hostname by python script (on container)
+    - name: execute hardcoded python script
       run: |
         python3 -c """
         import socket  
         print(socket.gethostname())
         """
-
+    
+    - name: Run script from repo
+      run: python python/request_ident_me.py
+      
     - name: print current user 
       run: id
