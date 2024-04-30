@@ -42,11 +42,11 @@ jobs:
     
     - name: Run script from repo
       run: |
-        PYTHON="AAAAAAAAA"
+        export PYTHON="AAAAAAAAA"
         if which python ; then 
-          PYTHON="python"
+          export PYTHON="python"
         else
-          PYTHON="python3"
+          export PYTHON="python3"
         fi 
         $PYTHON python/request_ident_me.py
 
