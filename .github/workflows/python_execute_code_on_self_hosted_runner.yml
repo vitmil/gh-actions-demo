@@ -41,7 +41,14 @@ jobs:
         """
     
     - name: Run script from repo
-      run: python python/request_ident_me.py
-      
+      run: |
+        PYTHON=""
+        if which python ; then 
+          PYTHON="python"
+        else
+          PYTHON="python3"
+        fi 
+        $PYTHON python/request_ident_me.py
+
     - name: print current user 
       run: id
