@@ -49,14 +49,14 @@ jobs:
           export PYTHON="python3"
         fi 
         $PYTHON python/request_ident_me.py
-        echo "BBBBBB" > file.txt
-        echo $PYTHON
+        #echo "BBBBBB" > file.txt
+        
         echo PYTHON="AAAAAAAAAA" >> $GITHUB_ENV
 
     - name: test 
       run: | 
-        echo $PYTHON
-        cat file.txt
+
+        #cat file.txt
         echo $PYTHON
         echo ${{ env.PYTHON }}
 
