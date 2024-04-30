@@ -50,5 +50,8 @@ jobs:
         fi 
         $PYTHON python/request_ident_me.py
 
+    - name: test 
+      run: echo $PYTHON
+
     - name: print current user 
       run: id
