@@ -33,6 +33,14 @@ jobs:
           echo -e "\n[INFO]: python3 already installed"
         fi    
 
+    - name: set and export ENV var PYTHON to $GITHUB_ENV
+      run: |
+        if which python3; then 
+          echo PYTHON="python3" >> $GITHUB_ENV
+        else
+          echo PYTHON="python" >> $GITHUB_ENV
+        fi
+
     - name: execute hardcoded python script
       run: |
         python3 -c """
@@ -42,23 +50,8 @@ jobs:
     
     - name: Run script from repo
       run: |
-        export PYTHON="AAAAAAAAA"
-        if which python ; then 
-          export PYTHON="python"
-        else
-          export PYTHON="python3"
-        fi 
         $PYTHON python/request_ident_me.py
-        #echo "BBBBBB" > file.txt
         
-        echo PYTHON="AAAAAAAAAA" >> $GITHUB_ENV
-
-    - name: test 
-      run: | 
-
-        #cat file.txt
-        echo $PYTHON
-        echo ${{ env.PYTHON }}
 
     - name: print current user 
       run: id
