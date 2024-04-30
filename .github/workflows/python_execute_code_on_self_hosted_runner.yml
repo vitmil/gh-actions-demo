@@ -49,9 +49,12 @@ jobs:
           export PYTHON="python3"
         fi 
         $PYTHON python/request_ident_me.py
+        echo "AAA" > file.txt
 
     - name: test 
-      run: echo $PYTHON
+      run: | 
+        echo $PYTHON
+        cat file.txt
 
     - name: print current user 
       run: id
