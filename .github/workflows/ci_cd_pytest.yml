@@ -57,10 +57,10 @@ jobs:
       - name: Copy script to target location
         run: |
           sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} \
-            scp -o StrictHostKeyChecking=no \
-            -P ${{ secrets.SSH_PORT_VPS }} \
-            python/unit-test/pytest_math_functions.py \ 
-            ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
+          scp -o StrictHostKeyChecking=no \
+          -P ${{ secrets.SSH_PORT_VPS }} \
+          python/unit-test/pytest_math_functions.py \ 
+          ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
 
 
       - name: Copia artifact su host remoto con SCP
