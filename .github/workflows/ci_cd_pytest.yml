@@ -56,20 +56,12 @@ jobs:
 
       - name: Copy script to target location
         run: |
-          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} \
-          scp -o StrictHostKeyChecking=no \
-          -P ${{ secrets.SSH_PORT_VPS }} \
-          python/unit-test/pytest_math_functions.py \ 
-          ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
+          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} python/unit-test/pytest_math_functions.py ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
 
 
       - name: Copia artifact su host remoto con SCP
         run: |
-          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} \
-            scp -o StrictHostKeyChecking=no \
-            -P ${{ secrets.SSH_PORT_VPS }} \
-            /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/math_functions.py  \
-            ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ABC.py
+          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/math_functions.py ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ABC.py
 
       - name: executing remote ssh commands 
         uses: appleboy/ssh-action@v1.0.3
