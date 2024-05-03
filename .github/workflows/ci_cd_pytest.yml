@@ -26,21 +26,12 @@ jobs:
       - name: Run tests
         run: |
           pytest -v python/unit-test/pytest_math_functions.py
-        #
-        # Archivia l'artifact "script.exe" con il nome "compiled-binary"
-        # per il passo successivo
-        working-directory: ${{ github.workspace }}
-        env:
-          
-          CI_ARTIFACT_PATH: ./artifacts/math-functions-artifact.zip
-
 
       - name: Create artifact with math_functions.py
         uses: actions/upload-artifact@v2
         with:
           name: math-functions-artifact
           path: python/unit-test/math_functions.py
-
 
       ## ToDo: KO
       - name: Upload coverage report
@@ -49,6 +40,7 @@ jobs:
           name: coverage_report
           path: ./coverage/html/index.html
       
+
   deploy:
     runs-on: vps-ubuntu-ovh  # This job runs on your self-hosted runner
     environment: My_Environment_1
@@ -66,9 +58,11 @@ jobs:
         run: |
           sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} python/unit-test/pytest_math_functions.py  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
 
+      ## KO: artifacts/math-functions-artifact.zip: No such file or directory
       - name: Copia artifact su host remoto con SCP
         run: |
-          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} artifacts/math-functions-artifact.zip  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
+          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} /home/vimi/github/actions-runner/vitmil-gh-actions-demo/_work/gh-actions-demo/gh-actions-demo/math_functions.py  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ABC.py
+          #sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} artifacts/math-functions-artifact.zip  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
           #scp artifacts/math-functions-artifact.zip user@host:/target/ directory  # Modifica in base alle tue necessità
 
       - name: executing remote ssh commands 
