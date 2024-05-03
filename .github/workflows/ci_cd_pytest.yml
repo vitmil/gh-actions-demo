@@ -1,35 +1,61 @@
-# name: CI workflow with pytest
+name: CI/CD workflow with pytest
 
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# jobs:
-#   build_and_test:
-#     runs-on: ubuntu-latest
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-#       - name: Set up Python environment
-#         uses: actions/setup-python@v3
-#         with:
-#           python-version: '3.12'
+      - name: Set up Python environment
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
 
-#       - name: Install dependencies
-#         run: |
-#           pip install -r python/requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install -r python/requirements.txt
 
-#       - name: Run tests
-#         run: |
-#           pytest -v python/unit-test/pytest_math_functions.py
+      - name: Run tests
+        run: |
+          pytest -v python/unit-test/pytest_math_functions.py
 
-#       - name: Upload coverage report
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: coverage_report
-#           path: ./coverage/html/index.html
+      ## ToDo: KO
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage_report
+          path: ./coverage/html/index.html
+      
+  deploy:
+    runs-on: vps-ubuntu-ovh  # This job runs on your self-hosted runner
+    environment: My_Environment_1
+    needs: build_and_test  # This job waits for build_and_test to finish
 
+    steps:
+      - name: Download artifacts from previous job
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts  # Name of the artifact uploaded in build_and_test job (optional)
+
+      # - name: Connect to self-hosted runner using SSH
+      #   uses: nlopes/ssh-action@v3
+      #   with:
+      #     host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+      #     username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+      #     password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+      #     #port: ${{ secrets.PORT }}
+      #     port: 2222
+      #     #key: ${{ secrets.SSH_KEY }}  # Replace with your SSH private key (encrypted in secrets)
+
+      - name: Copy script to target location
+        run: |
+          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT_VPS }} python/unit-test/pytest_math_functions.py  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
+          #scp -o StrictHostKeyChecking=no math_functions.py ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:target/location  # Replace target/location with your desired path on the self-hosted runner
