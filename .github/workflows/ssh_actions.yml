@@ -25,8 +25,7 @@ jobs:
         host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
         username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
         password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
-        #port: ${{ secrets.PORT }}
-        port: 2222
+        port: ${{ secrets.SSH_PORT_VPS }}
         script: | 
           whoami
           hostname

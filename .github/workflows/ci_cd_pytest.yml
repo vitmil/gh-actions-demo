@@ -27,6 +27,12 @@ jobs:
         run: |
           pytest -v python/unit-test/pytest_math_functions.py
 
+      - name: Create artifact with math_functions.py
+        uses: actions/upload-artifact@v2
+        with:
+          name: math-functions-artifact
+          path: python/unit-test/math_functions.py
+          
       ## ToDo: KO
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
@@ -46,17 +52,20 @@ jobs:
       #   with:
       #     name: build-artifacts  # Name of the artifact uploaded in build_and_test job (optional)
 
-      # - name: Connect to self-hosted runner using SSH
-      #   uses: nlopes/ssh-action@v3
-      #   with:
-      #     host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
-      #     username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
-      #     password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
-      #     #port: ${{ secrets.PORT }}
-      #     port: 2222
-      #     #key: ${{ secrets.SSH_KEY }}  # Replace with your SSH private key (encrypted in secrets)
 
       - name: Copy script to target location
         run: |
           sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} python/unit-test/pytest_math_functions.py  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
-          #scp -o StrictHostKeyChecking=no math_functions.py ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:target/location  # Replace target/location with your desired path on the self-hosted runner
+          #scp -o StrictHostKeyChecking=no math_functions.py ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:target/location  # Replace target/location with your desired path on the self-hosted runner
+
+      - name: executing remote ssh commands 
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.IP_SELF_HOSTED_RUNNER }}
+          port: ${{ secrets.SSH_PORT_VPS }}
+          username: ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}
+          password: ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }}
+          #key: ${{ secrets.SSH_KEY }}  # Replace with your SSH private key (encrypted in secrets)
+          script: | 
+            whoami
+            hostname
