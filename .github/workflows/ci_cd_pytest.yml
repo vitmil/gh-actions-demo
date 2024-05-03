@@ -46,17 +46,21 @@ jobs:
     needs: build_and_test  # This job waits for build_and_test to finish
 
     steps:
-      ## KO: Error: Unable to find any artifacts for the associated workflow
-      # - name: Download artifacts from previous job
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: build-artifacts  # Name of the artifact uploaded in build_and_test job (optional)
+
+      - name: Download artifacts from previous job
+        uses: actions/download-artifact@v2
+        with:
+          name: math-functions-artifact  # Name of the artifact uploaded in build_and_test job (optional)
 
 
       - name: Copy script to target location
         run: |
           sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} python/unit-test/pytest_math_functions.py  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
-          #scp -o StrictHostKeyChecking=no math_functions.py ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:target/location  # Replace target/location with your desired path on the self-hosted runner
+
+      - name: Copia artifact su host remoto con SCP
+        run: |
+          sshpass -p ${{ secrets.PASSWORD_SELF_HOSTED_RUNNER }} scp -o StrictHostKeyChecking=no -P ${{ secrets.SSH_PORT_VPS }} artifacts/math-functions-artifact.zip  ${{ secrets.USERNAME_SELF_HOSTED_RUNNER }}@${{ secrets.IP_SELF_HOSTED_RUNNER }}:/tmp/ 
+          #scp artifacts/math-functions-artifact.zip user@host:/target/ directory  # Modifica in base alle tue necessità
 
       - name: executing remote ssh commands 
         uses: appleboy/ssh-action@v1.0.3
