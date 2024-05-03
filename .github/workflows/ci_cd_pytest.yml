@@ -26,13 +26,22 @@ jobs:
       - name: Run tests
         run: |
           pytest -v python/unit-test/pytest_math_functions.py
+        #
+        # Archivia l'artifact "script.exe" con il nome "compiled-binary"
+        # per il passo successivo
+        working-directory: ${{ github.workspace }}
+        env:
+          
+          CI_ARTIFACT_PATH: ./artifacts/math-functions-artifact.zip
+
 
       - name: Create artifact with math_functions.py
         uses: actions/upload-artifact@v2
         with:
           name: math-functions-artifact
           path: python/unit-test/math_functions.py
-          
+
+
       ## ToDo: KO
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
