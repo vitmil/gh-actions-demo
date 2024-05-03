@@ -1,4 +1,4 @@
-name: CI workflow
+name: CI workflow with pytest
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest python/unit-test/pytest_math_functions.py
+          pytest -v python/unit-test/pytest_math_functions.py
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
